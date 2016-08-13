@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3F362976-2C27-4005-9B37-B74936B5AA76}</ProjectGuid>
+    <ProjectGuid>{91667BE8-4FE8-442F-A9C8-249D066A7802}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Mat</RootNamespace>
   </PropertyGroup>
@@ -79,6 +79,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Mat.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

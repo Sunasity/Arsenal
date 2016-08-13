@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mat", "Mat\Mat.vcxproj", "{3F362976-2C27-4005-9B37-B74936B5AA76}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mat", "Mat\Mat.vcxproj", "{91667BE8-4FE8-442F-A9C8-249D066A7802}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3F362976-2C27-4005-9B37-B74936B5AA76}.Debug|Win32.ActiveCfg = Debug|Win32
-		{3F362976-2C27-4005-9B37-B74936B5AA76}.Debug|Win32.Build.0 = Debug|Win32
-		{3F362976-2C27-4005-9B37-B74936B5AA76}.Release|Win32.ActiveCfg = Release|Win32
-		{3F362976-2C27-4005-9B37-B74936B5AA76}.Release|Win32.Build.0 = Release|Win32
+		{91667BE8-4FE8-442F-A9C8-249D066A7802}.Debug|Win32.ActiveCfg = Debug|Win32
+		{91667BE8-4FE8-442F-A9C8-249D066A7802}.Debug|Win32.Build.0 = Debug|Win32
+		{91667BE8-4FE8-442F-A9C8-249D066A7802}.Release|Win32.ActiveCfg = Release|Win32
+		{91667BE8-4FE8-442F-A9C8-249D066A7802}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
