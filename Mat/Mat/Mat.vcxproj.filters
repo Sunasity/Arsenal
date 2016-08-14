@@ -24,7 +24,10 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Mat.h">
+    <ClInclude Include="Mat.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="common.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,11 +35,22 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Mat.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="A_64x27.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="B_27x224.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="C_64x224.dat">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

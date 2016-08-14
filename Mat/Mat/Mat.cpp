@@ -1,9 +1,10 @@
 
 #include "stdafx.h"
-#include "Mat.h"
-
+#include "Mat.hpp"
+#include "common.hpp"
 namespace Arsenal{
-void Mat::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k){
+template <typename Dtype>
+void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k){
 	for (int i_m = 0; i_m < m; i_m ++){
 		for (int i_n = 0; i_n < n; i_n ++){
 			int C_idx = i_n * m + i_m;
@@ -16,4 +17,13 @@ void Mat::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int
 		}
 	}
 }
+
+template <typename Dtype>
+Dtype* Mat<Dtype>::GET_CPU_DATA(){
+	Dtype *CPU_DATA = new Dtype(_row * _column);
+	CPU_DATA = MAT_DATA;
+	return CPU_DATA;
+}
+
+INSTANCE_CLASS(Mat);
 }
