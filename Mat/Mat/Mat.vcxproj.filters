@@ -52,5 +52,14 @@
     <None Include="C_64x224.dat">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="A_128x576.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="B_576x224.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="C_128x224.dat">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

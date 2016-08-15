@@ -93,8 +93,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="A_128x576.dat" />
     <None Include="A_64x27.dat" />
     <None Include="B_27x224.dat" />
+    <None Include="B_576x224.dat" />
+    <None Include="C_128x224.dat" />
     <None Include="C_64x224.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
