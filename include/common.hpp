@@ -4,5 +4,5 @@ namespace Arsenal{
 	char gInstantiationGuard##classname; \
 	template class classname<float>; \
 	template class classname<double>; \
-	template class classname<int> 
+	template class classname<int>; 
 }

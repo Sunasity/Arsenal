@@ -23,4 +23,4 @@ all : $(OBJS)
 
 .PHONY : clean
 clean :
-	rm  $(OBJSDIR)/*.o Arsenal
+	rm  $(OBJSDIR)/*.o $(BIN)/Arsenal

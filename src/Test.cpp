@@ -21,8 +21,8 @@ int main()
 
 	clock_t start, end, inter;
 	start = clock();
-	Mat<int> A(64,27, "./data/A_128x576.dat");
-	Mat<int> B(27,224, "./data/B_576x224.dat");
+	Mat<int> A(64,27, "../data/A_128x576.dat");
+	Mat<int> B(27,224, "../data/B_576x224.dat");
 	Mat<int> C(64, 224);	
 	inter = clock();
 
@@ -30,7 +30,7 @@ int main()
 	end = clock();
 	int *data_test = new int(64*224);
 	data_test = C.GET_CPU_DATA();
-	string file_name = "./data/C_128x224.dat";
+	string file_name = "../data/C_128x224.dat";
 	const char *_file_name = file_name.data();
 	ofstream C_file(_file_name);
 	for (int i = 0; i < 64*224; i ++){
