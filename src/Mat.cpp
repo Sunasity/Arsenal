@@ -44,21 +44,23 @@ void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, co
 			int A_idx = i_m * k + i_k;
 			Dtype tmp = A.MAT_DATA[A_idx];
 			int B_idx = i_k * n; int C_idx = i_m * n;
-#if 1			
-			for (int i_n = 0; i_n <= (n / FOLDING_SIZE); i_n ++){
-				if (i_n   < (n / FOLDING_SIZE)){						
-					PE; PE; PE; PE;
-					PE; PE; PE; PE;
-					PE; PE; PE; PE;
-					PE; PE; PE; PE;
-				}
-				else{
-					for (int i_para = 0; i_para < n % FOLDING_SIZE; i_para ++){
-						C.MAT_DATA[C_idx] += tmp * B.MAT_DATA[B_idx];						
-						B_idx ++;
-						C_idx ++;
+#if 1		
+			if (tmp){	
+				for (int i_n = 0; i_n <= (n / FOLDING_SIZE); i_n ++){
+					if (i_n   < (n / FOLDING_SIZE)){						
+						PE; PE; PE; PE;
+						PE; PE; PE; PE;
+						PE; PE; PE; PE;
+						PE; PE; PE; PE;
 					}
-				}				
+					else{
+						for (int i_para = 0; i_para < n % FOLDING_SIZE; i_para ++){
+							C.MAT_DATA[C_idx] += tmp * B.MAT_DATA[B_idx];						
+							B_idx ++;
+							C_idx ++;
+						}
+					}				
+				}
 			}
 #endif
 #if 0
