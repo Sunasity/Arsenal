@@ -2,7 +2,7 @@
 #include "Mat.hpp"
 #include "common.hpp"
 
-#define ROW_DOMIN
+#define TILING_SIZE
 #define FOLDING_SIZE 16
 #define PE C.MAT_DATA[C_idx] += tmp * B.MAT_DATA[B_idx]; \
 		   B_idx ++; \
@@ -75,6 +75,32 @@ void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, co
 				C_idx ++;
 			}
 #endif
+		}
+	}
+#endif
+
+
+#ifdef TILING_SIZE
+	const int T = 8;
+
+	for (int i = 0; i < m * n; i ++){
+		C.MAT_DATA[i] = 1;
+	}
+
+	for (int it_m = 0; it_m < m; it_m += T){
+		for (int it_n = 0; it_n < n; it_n += T){
+			for (int it_k = 0; it_k < k; it_k += T){
+				for (int i_m = it_m; i_m < it_m + T; i_m ++){
+					for (int i_n = it_n; i_n < it_n + T; i_n ++){
+						int C_idx = i_m * n + i_n;
+						for (int i_k = it_k; i_k < it_k + T; i_k ++){
+							int A_idx = i_m * k + i_k;
+							int B_idx = i_k * n + i_n;
+							C.MAT_DATA[C_idx] += A.MAT_DATA[A_idx] * B.MAT_DATA[B_idx];
+						}
+					}
+				}
+			}
 		}
 	}
 #endif

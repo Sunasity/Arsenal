@@ -1,3 +1,3 @@
 git add .
-git commit -m "Enhance the performance a little"
+git commit -m "Terrible Performance"
 git push origin master
