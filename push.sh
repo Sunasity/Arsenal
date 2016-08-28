@@ -1,3 +1,3 @@
 git add .
-git commit -m "TODO Updated"
+git commit -m "Coding.."
 git push origin master

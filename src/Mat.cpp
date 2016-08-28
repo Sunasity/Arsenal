@@ -2,7 +2,7 @@
 #include "Mat.hpp"
 #include "common.hpp"
 
-#define TILING_SIZE
+#define STRASSEN
 #define FOLDING_SIZE 16
 #define PE C.MAT_DATA[C_idx] += tmp * B.MAT_DATA[B_idx]; \
 		   B_idx ++; \
@@ -106,7 +106,11 @@ void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, co
 #endif
 
 #ifdef STRASSEN
+	const Dtype *A_data = new Dtype(m * k); A_data = A.MAT_DATA;
+    const Dtype *B_data = new Dtype(k * n); B_data = B.MAT_DATA;
+	Dtype *C_data = new Dtype(m * n); C_data = C.MAT_DATA;
 
+	MM__multiply_STRASSEN(A_data, B_data, C_data, m, n, k);
 #endif
 }
 
