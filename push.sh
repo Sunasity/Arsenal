@@ -1,3 +1,3 @@
 git add .
-git commit -m "Terrible Performance"
+git commit -m "TODO Updated"
 git push origin master

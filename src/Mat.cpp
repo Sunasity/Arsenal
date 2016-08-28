@@ -104,6 +104,10 @@ void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, co
 		}
 	}
 #endif
+
+#ifdef STRASSEN
+
+#endif
 }
 
 template <typename Dtype>
