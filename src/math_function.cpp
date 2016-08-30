@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "Mat.hpp"
+#include "math_function.hpp"
 
 namespace Arsenal{
 template <typename Dtype>
-void MM_multiply_STRASSEN(const Dtype *A; const Dtype *B, Dtype *C, const int m, const int n, const int k){
+void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){
 	if ((m % 2 == 0) & (n % 2 == 0) & (k % 2 == 0)){
 		int tmp_m = m / 2;
 		int tmp_n = n / 2;
@@ -68,34 +68,67 @@ void MM_multiply_STRASSEN(const Dtype *A; const Dtype *B, Dtype *C, const int m,
 			}
 		}
 
-		MM_minus(B12, B22, P11, k, n);
+		MM_minus(B12, B22, P11, tmp_k, tmp_n);
 		STRASSEN(A11, P11, P1, tmp_m, tmp_n, tmp_k);
 
-		MM_add(A11, A12, P20, m, k);
+		MM_add(A11, A12, P20, tmp_m, tmp_k);
 		STRASSEN(P20, B22, P2, tmp_m, tmp_n, tmp_k);
 
-		MM_add(A21, A22, P30, m, k);
+		MM_add(A21, A22, P30, tmp_m, tmp_k);
 		STRASSEN(P30, B11, P3, tmp_m, tmp_n, tmp_k);
 
-		MM_minus(B21, B11, P41, k, n);
+		MM_minus(B21, B11, P41, tmp_k, tmp_n);
 		STRASSEN(A22, P41, P4, tmp_m, tmp_n, tmp_k);
 
-		MM_add(A11, A22, P50, m, k);
-		MM_add(B11, B22, P51, k, n);
+		MM_add(A11, A22, P50, tmp_m, tmp_k);
+		MM_add(B11, B22, P51, tmp_k, tmp_n);
 		STRASSEN(P50, P51, P5, tmp_m, tmp_n, tmp_k);
 
-		MM_minus(A12, A22, P60, m, k);
-		MM_add(B21, B22, P61, k, n);
+		MM_minus(A12, A22, P60, tmp_m, tmp_k);
+		MM_add(B21, B22, P61, tmp_k, tmp_n);
 		STRASSEN(P60, P61, P6, tmp_m, tmp_n, tmp_k);
 
-		MM_minus(A11, A21, P70, m, k);
-		MM_add(B11, B12, P71, k, n);
+		MM_minus(A11, A21, P70, tmp_m, tmp_k);
+		MM_add(B11, B12, P71, tmp_k, tmp_n);
 		STRASSEN(P70, P71, P7, tmp_m, tmp_n, tmp_k);
-		
 
+		MM_add(P5, P4, C11, tmp_m, tmp_n);
+		MM_minus(C11, P2, C11, tmp_m, tmp_n);
+		MM_add(C11, P6, C11, tmp_m, tmp_n);
+		MM_add(P1, P2, C12, tmp_m, tmp_n);
+		MM_add(P4, P3, C21, tmp_m, tmp_n);
+		MM_add(P1, P5, C22, tmp_m, tmp_n);
+		MM_minus(C22, P3, C22, tmp_m, tmp_n);
+		MM_minus(C22, P7, C22, tmp_m, tmp_n);
+
+		for (int i_tmp_m = 0; i_tmp_m < tmp_m; i_tmp_m ++){
+			for (int i_tmp_n = 0; i_tmp_n < tmp_n; i_tmp_n ++){
+				int IDX = tmp_n * i_tmp_m + i_tmp_n;
+				int C11_idx = n * i_tmp_m + i_tmp_n;
+				C[C11_idx] = C[IDX];
+				int C12_idx = n * i_tmp_m + i_tmp_n + tmp_n;
+				C[C12_idx] = C[IDX];
+				int C21_idx = n * (i_tmp_m + tmp_m) + i_tmp_n;
+				C[C21_idx] = C[IDX];
+				int C22_idx = n * (i_tmp_m + tmp_m) + i_tmp_n + tmp_n;
+				C[C22_idx] = C[IDX];
+			}
+		}	
 	}
-
 	else{
+		MM_multiply_common(A, B, C, m, n, k);
 	}
-}	
+}
+
+template <typename Dtype>
+void MM_add(Dtype *A, Dtype *B, Dtype *C, const int m, const int n){
+}
+
+template <typename Dtype>
+void MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n){
+}
+
+template <typename Dtype>
+void MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){
+}
 }
