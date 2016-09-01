@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include "math_function.hpp"
+#define FOLDING_SIZE 16
+#define PE C[C_idx] += tmp * B[B_idx]; \
+		   B_idx ++; \
+		   C_idx ++;
 
 namespace Arsenal{
 template <typename Dtype>
@@ -63,7 +67,7 @@ void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m,
 				B12[IDX] = B[B12_idx];
 				int B21_idx = n * (i_tmp_k + tmp_k) + i_tmp_n;
 				B21[IDX] = B[B21_idx];
-				int B22_idx = n * (i_tmp_k + tmp_k) + i_tmp_n + tmp_;
+				int B22_idx = n * (i_tmp_k + tmp_k) + i_tmp_n + tmp_n;
 				B22[IDX] = B[B22_idx];
 			}
 		}
@@ -121,14 +125,49 @@ void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m,
 }
 
 template <typename Dtype>
-void MM_add(Dtype *A, Dtype *B, Dtype *C, const int m, const int n){
+void MM_add(Dtype *A, Dtype *B, Dtype *C, const int m, const int n){	//C = A + B
+	for (int i = 0; i < m * n; i ++){
+		C[i] = A[i] + B[i];
+	}
 }
 
 template <typename Dtype>
-void MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n){
+void MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n){   //C = A - B
+	for (int i = 0; i < m * n; i ++){
+		C[i] = A[i] - B[i];
+	}
 }
 
 template <typename Dtype>
-void MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){
+void MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){	//common multiply:C = A * B
+
+	for (int i = 0; i < m * n; i ++){
+		C[i] = 0;
+	}
+	
+	for (int i_m = 0; i_m < m; i_m ++){   //from naive to row-domin
+		for (int i_k = 0; i_k < k; i_k ++){
+			int A_idx = i_m * k + i_k;
+			Dtype tmp = A[A_idx];
+			int B_idx = i_k * n; int C_idx = i_m * n;	
+			if (tmp){	
+				for (int i_n = 0; i_n <= (n / FOLDING_SIZE); i_n ++){
+					if (i_n   < (n / FOLDING_SIZE)){						
+						PE; PE; PE; PE;
+						PE; PE; PE; PE;
+						PE; PE; PE; PE;
+						PE; PE; PE; PE;
+					}
+					else{
+						for (int i_para = 0; i_para < n % FOLDING_SIZE; i_para ++){
+							C[C_idx] += tmp * B[B_idx];						
+							B_idx ++;
+							C_idx ++;
+						}
+					}				
+				}
+			}
+		}
+	}
 }
 }

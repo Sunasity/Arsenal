@@ -1,0 +1,2 @@
+g++ -Wall -g -I./include -o Mat.o -c src/Mat.cpp
+Makefile:21: recipe for target 'Mat.o' failed
