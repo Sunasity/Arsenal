@@ -5,7 +5,7 @@
 
 #define STRASSEN
 #define FOLDING_SIZE 16
-#define PE C.MAT_DATA[C_idx] += tmp * B.MAT_DATA[B_idx]; \
+#define PE C[C_idx] += tmp * B[B_idx]; \
 		   B_idx ++; \
 		   C_idx ++;
 
@@ -107,9 +107,9 @@ void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, co
 #endif
 
 #ifdef STRASSEN
-	//const Dtype *A_data = new Dtype(m * k); A_data = A.MAT_DATA;
-    //const Dtype *B_data = new Dtype(k * n); B_data = B.MAT_DATA;
-	//Dtype *C_data = new Dtype(m * n); C_data = C.MAT_DATA;
+	const Dtype *A_data = new Dtype(m * k); A_data = A.MAT_DATA;
+    const Dtype *B_data = new Dtype(k * n); B_data = B.MAT_DATA;
+	Dtype *C_data = new Dtype(m * n); C_data = C.MAT_DATA;
 
 	MM_multiply_STRASSEN(A, B, C, m, n, k);
 #endif
@@ -117,7 +117,7 @@ void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, co
 
 
 template <typename Dtype>
-void Mat<Dtype>::MM_multiply_STRASSEN(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k){
+void Mat<Dtype>::MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){
 	if ((m % 2 == 0) & (n % 2 == 0) & (k % 2 == 0)){ 
 		int tmp_m = m / 2;
 		int tmp_n = n / 2;
@@ -183,28 +183,28 @@ void Mat<Dtype>::MM_multiply_STRASSEN(const Mat &A, const Mat &B, Mat &C, const 
 		}
 
 		MM_minus(B12, B22, P11, tmp_k, tmp_n);
-		STRASSEN(A11, P11, P1, tmp_m, tmp_n, tmp_k);
+		MM_multiply_STRASSEN(A11, P11, P1, tmp_m, tmp_n, tmp_k);
 
 		MM_add(A11, A12, P20, tmp_m, tmp_k);
-		STRASSEN(P20, B22, P2, tmp_m, tmp_n, tmp_k);
+		MM_multiply_STRASSEN(P20, B22, P2, tmp_m, tmp_n, tmp_k);
 
 		MM_add(A21, A22, P30, tmp_m, tmp_k);
-		STRASSEN(P30, B11, P3, tmp_m, tmp_n, tmp_k);
+		MM_multiply_STRASSEN(P30, B11, P3, tmp_m, tmp_n, tmp_k);
 
 		MM_minus(B21, B11, P41, tmp_k, tmp_n);
-		STRASSEN(A22, P41, P4, tmp_m, tmp_n, tmp_k);
+		MM_multiply_STRASSEN(A22, P41, P4, tmp_m, tmp_n, tmp_k);
 
 		MM_add(A11, A22, P50, tmp_m, tmp_k);
 		MM_add(B11, B22, P51, tmp_k, tmp_n);
-		STRASSEN(P50, P51, P5, tmp_m, tmp_n, tmp_k);
+		MM_multiply_STRASSEN(P50, P51, P5, tmp_m, tmp_n, tmp_k);
 
 		MM_minus(A12, A22, P60, tmp_m, tmp_k);
 		MM_add(B21, B22, P61, tmp_k, tmp_n);
-		STRASSEN(P60, P61, P6, tmp_m, tmp_n, tmp_k);
+		MM_multiply_STRASSEN(P60, P61, P6, tmp_m, tmp_n, tmp_k);
 
 		MM_minus(A11, A21, P70, tmp_m, tmp_k);
 		MM_add(B11, B12, P71, tmp_k, tmp_n);
-		STRASSEN(P70, P71, P7, tmp_m, tmp_n, tmp_k);
+		MM_multiply_STRASSEN(P70, P71, P7, tmp_m, tmp_n, tmp_k);
 
 		MM_add(P5, P4, C11, tmp_m, tmp_n);
 		MM_minus(C11, P2, C11, tmp_m, tmp_n);
