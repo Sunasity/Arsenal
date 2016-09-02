@@ -227,7 +227,14 @@ void Mat<Dtype>::MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, 
 				int C22_idx = n * (i_tmp_m + tmp_m) + i_tmp_n + tmp_n;
 				C[C22_idx] = C[IDX];
 			}
-		}	
+		}
+
+		delete [] A11;	delete [] A12;	delete [] A21;	delete [] A22;
+		delete [] B11;	delete [] B12;	delete [] B21;	delete [] B22;
+		delete [] C11; 	delete [] C12; 	delete [] C21; 	delete [] C22; 	
+		delete [] P1;   delete [] P2;   delete [] P3;   delete [] P4;   delete [] P5;   delete [] P6;   delete [] P7; 
+		delete [] P11;  delete [] P20;  delete [] P30;  delete [] P41;  delete [] P50;  delete [] P51;  delete [] P60;  delete [] P61;  delete [] P70;  delete [] P71;
+
 	}
 	else{
 		MM_multiply_common(A, B, C, m, n, k);
