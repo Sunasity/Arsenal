@@ -1,3 +1,3 @@
 git add .
-git commit -m "Buging..."
+git commit -m "Bug fixed"
 git push origin master

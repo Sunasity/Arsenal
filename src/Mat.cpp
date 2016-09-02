@@ -111,7 +111,7 @@ void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, co
     const Dtype *B_data = new Dtype(k * n); B_data = B.MAT_DATA;
 	Dtype *C_data = new Dtype(m * n); C_data = C.MAT_DATA;
 
-	MM_multiply_STRASSEN(A, B, C, m, n, k);
+	MM_multiply_STRASSEN(A_data, B_data, C_data, m, n, k);
 #endif
 }
 
