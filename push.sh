@@ -1,3 +1,3 @@
 git add .
-git commit -m "Memory optimize & 13% enhance in performance"
+git commit -m "Can't get the result as minutes before"
 git push origin master
