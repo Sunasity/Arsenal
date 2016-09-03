@@ -1,3 +1,3 @@
 git add .
-git commit -m "Can't get the result as minutes before"
+git commit -m "17% enhance"
 git push origin master
