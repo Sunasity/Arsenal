@@ -1,3 +1,3 @@
 git add .
-git commit -m "17% enhance"
+git commit -m "structure modified"
 git push origin master

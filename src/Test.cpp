@@ -21,13 +21,17 @@ int main()
 
 	clock_t start, end, inter;
 	start = clock();
+	int test_data[10];
+	int average_data = 0;
 	Mat<int> A(64,27, "../data/A_128x576.dat");
 	Mat<int> B(27,224, "../data/B_576x224.dat");
 	Mat<int> C(64, 224);	
-	inter = clock();
-
-	C.MM_multiply(A, B, C, 64, 224, 27);
-	end = clock();
+	for (int i = 0; i < 10; i ++){
+		inter = clock();
+		C.MM_multiply(A, B, C, 64, 224, 27);
+		end = clock();
+		test_data[i] = end - inter;
+	}
 	int *data_test = new int(64*224);
 	data_test = C.GET_CPU_DATA();
 	string file_name = "../data/C_128x224.dat";
@@ -36,8 +40,13 @@ int main()
 	for (int i = 0; i < 64*224; i ++){
 		C_file << data_test[i] << endl;
 	}
-	cout << "Read_Time : " << inter - start << endl;
-	cout << "Compute_Time : " << end - inter << endl;
+	cout << "Read_Time : " << test_data[0] - start << endl;
+	cout << "Compute Time : " << endl;
+	for (int i = 0; i < 10; i ++){
+		cout << test_data[i]  << endl;
+		average_data += test_data[i]; 
+	}
+	cout << "Average Time : " << average_data/10 << endl;
 	int FOR_DEBUG;
 	return 0;
 	
