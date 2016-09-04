@@ -1,3 +1,3 @@
 git add .
-git commit -m "structure modified"
+git commit -m "Test modified"
 git push origin master

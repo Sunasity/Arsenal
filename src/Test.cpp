@@ -8,6 +8,8 @@
 #include <ctime>
 #include <iostream>
 
+#define TEST_TIME 1000
+
 using std::ofstream;
 using std::string;
 using std::endl;
@@ -21,12 +23,12 @@ int main()
 
 	clock_t start, end, inter;
 	start = clock();
-	int test_data[10];
-	int average_data = 0;
+	int test_data[TEST_TIME];
+	long long  average_data = 0;
 	Mat<int> A(64,27, "../data/A_128x576.dat");
 	Mat<int> B(27,224, "../data/B_576x224.dat");
 	Mat<int> C(64, 224);	
-	for (int i = 0; i < 10; i ++){
+	for (int i = 0; i < TEST_TIME; i ++){
 		inter = clock();
 		C.MM_multiply(A, B, C, 64, 224, 27);
 		end = clock();
@@ -41,12 +43,12 @@ int main()
 		C_file << data_test[i] << endl;
 	}
 	cout << "Read_Time : " << test_data[0] - start << endl;
-	cout << "Compute Time : " << endl;
-	for (int i = 0; i < 10; i ++){
-		cout << test_data[i]  << endl;
+	//cout << "Compute Time : " << endl;
+	for (int i = 0; i < TEST_TIME; i ++){
+		//cout << test_data[i]  << endl;
 		average_data += test_data[i]; 
 	}
-	cout << "Average Time : " << average_data/10 << endl;
+	cout << "Average Time : " << average_data/TEST_TIME << endl;
 	int FOR_DEBUG;
 	return 0;
 	
