@@ -13,12 +13,12 @@ OBJS = Mat.o Test.o
 
 .PHONY : all
 all : $(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS)
+	$(CXX) -o $(TARGET) $(OBJS) -fopenmp
 	mv $(OBJS) $(OBJSDIR)
 
 
 %.o : %.cpp 
-	$(CXX) $(CFLAGS) $(INC) -o $@ -c $<
+	$(CXX) $(CFLAGS) $(INC) -o $@ -c $< -fopenmp
 
 
 .PHONY : clean

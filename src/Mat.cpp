@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "Mat.hpp"
 #include "common.hpp"
-
+#include <omp.h>
 
 #define STRASSEN
 #define FOLDING_SIZE 16
@@ -69,31 +69,27 @@ void Mat<Dtype>::MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, 
 		Dtype *P70 = new Dtype(tmp_m * tmp_k);
 		Dtype *P71 = new Dtype(tmp_k * tmp_n);
 
-		for (int i_tmp_m = 0; i_tmp_m < tmp_m; i_tmp_m ++){
+		for (int i_tmp_m = 0; i_tmp_m < tmp_m; i_tmp_m ++){				
+				int IDX = tmp_k * i_tmp_m;
+				int A11_idx = k * i_tmp_m;
+				int A12_idx = k * i_tmp_m + tmp_k;
+				int A21_idx = k * (i_tmp_m + tmp_m);
+				int A22_idx = k * (i_tmp_m + tmp_m) + tmp_k;
 			for (int i_tmp_k = 0; i_tmp_k < tmp_k; i_tmp_k ++){
-				int IDX = tmp_k * i_tmp_m + i_tmp_k;
-				int A11_idx = k * i_tmp_m + i_tmp_k;
-				A11[IDX] = A[A11_idx];
-				int A12_idx = k * i_tmp_m + i_tmp_k + tmp_k;
-				A12[IDX] = A[A12_idx];
-				int A21_idx = k * (i_tmp_m + tmp_m) + i_tmp_k;
-				A21[IDX] = A[A21_idx];
-				int A22_idx = k * (i_tmp_m + tmp_m) + i_tmp_k + tmp_k;
-				A22[IDX] = A[A22_idx];
+				A11[IDX] = A[A11_idx];  A12[IDX] = A[A12_idx];  A21[IDX] = A[A21_idx];  A22[IDX] = A[A22_idx];
+				IDX ++;  A11_idx ++;  A12_idx ++;  A21_idx ++;  A22_idx ++;
 			}
 		}
 
 		for (int i_tmp_k = 0; i_tmp_k < tmp_k; i_tmp_k ++){
+				int IDX = tmp_n * i_tmp_k;
+				int B11_idx = n * i_tmp_k;
+				int B12_idx = n * i_tmp_k + tmp_n;
+				int B21_idx = n * (i_tmp_k + tmp_k);
+				int B22_idx = n * (i_tmp_k + tmp_k) + tmp_n;
 			for (int i_tmp_n = 0; i_tmp_n < tmp_n; i_tmp_n ++){
-				int IDX = tmp_n * i_tmp_k + i_tmp_n;
-				int B11_idx = n * i_tmp_k + i_tmp_n;
-				B11[IDX] = B[B11_idx];
-				int B12_idx = n * i_tmp_k + i_tmp_n + tmp_n;
-				B12[IDX] = B[B12_idx];
-				int B21_idx = n * (i_tmp_k + tmp_k) + i_tmp_n;
-				B21[IDX] = B[B21_idx];
-				int B22_idx = n * (i_tmp_k + tmp_k) + i_tmp_n + tmp_n;
-				B22[IDX] = B[B22_idx];
+				B11[IDX] = B[B11_idx]; B12[IDX] = B[B12_idx]; B21[IDX] = B[B21_idx]; B22[IDX] = B[B22_idx];
+				IDX ++;  B11_idx ++;  B12_idx ++;  B21_idx ++;  B22_idx ++;
 			}
 		}
 
@@ -131,16 +127,14 @@ void Mat<Dtype>::MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, 
 		MM_minus(C22, P7, C22, tmp_m, tmp_n);
 
 		for (int i_tmp_m = 0; i_tmp_m < tmp_m; i_tmp_m ++){
+				int IDX = tmp_n * i_tmp_m;
+				int C11_idx = n * i_tmp_m;
+				int C12_idx = n * i_tmp_m + tmp_n;
+				int C21_idx = n * (i_tmp_m + tmp_m);
+				int C22_idx = n * (i_tmp_m + tmp_m) + tmp_n;
 			for (int i_tmp_n = 0; i_tmp_n < tmp_n; i_tmp_n ++){
-				int IDX = tmp_n * i_tmp_m + i_tmp_n;
-				int C11_idx = n * i_tmp_m + i_tmp_n;
-				C[C11_idx] = C[IDX];
-				int C12_idx = n * i_tmp_m + i_tmp_n + tmp_n;
-				C[C12_idx] = C[IDX];
-				int C21_idx = n * (i_tmp_m + tmp_m) + i_tmp_n;
-				C[C21_idx] = C[IDX];
-				int C22_idx = n * (i_tmp_m + tmp_m) + i_tmp_n + tmp_n;
-				C[C22_idx] = C[IDX];
+				C[C11_idx] = C[IDX];  C[C12_idx] = C[IDX];  C[C21_idx] = C[IDX];  C[C22_idx] = C[IDX];
+				IDX ++;  C11_idx ++;  C12_idx ++;  C21_idx ++;  C22_idx ++;
 			}
 		}
 
@@ -173,6 +167,7 @@ void Mat<Dtype>::MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n
 template <typename Dtype>
 void Mat<Dtype>::MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){	//common multiply:C = A * B
 
+#pragma omp parallel for num_threads(2)
 	for (int i = 0; i < m * n; i ++){
 		C[i] = 0;
 	}

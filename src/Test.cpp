@@ -7,7 +7,7 @@
 #include <string>
 #include <ctime>
 #include <iostream>
-
+#include <omp.h>
 #define TEST_TIME 1000
 
 using std::ofstream;
@@ -49,7 +49,8 @@ int main()
 		average_data += test_data[i]; 
 	}
 	cout << "Average Time : " << average_data/TEST_TIME << endl;
-	int FOR_DEBUG;
+	int a = omp_get_num_threads();
+	cout << "threads:" << a << endl;
 	return 0;
 	
 }
