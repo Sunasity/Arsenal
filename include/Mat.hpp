@@ -51,6 +51,7 @@ public:
 	}
 
 	void MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k);   //C(m*n) = A(m*k) * B(k*n)矩阵乘法	
+	void MV_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k);	//矩阵向量乘法
 
 	Dtype* GET_CPU_DATA();
 
