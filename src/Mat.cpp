@@ -30,6 +30,22 @@ void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, co
 #endif
 }
 
+template <typename Dtype>
+void Mat<Dtype>::MV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, const int n){
+		const Dtype *A_data = new Dtype(m * n); A_data = A.MAT_DATA;
+		const Dtype *B_data;
+		Dtype *C_data;
+	if (TRANS == false){
+		B_data = new Dtype(n); B_data = B.MAT_DATA;
+		C_data = new Dtype(m); C_data = C.MAT_DATA;
+	}else
+	if (TRANS == true){
+		B_data = new Dtype(m); B_data = B.MAT_DATA;
+		C_data = new Dtype(n); C_data = C.MAT_DATA;
+	}
+	MV_multiply_navie(TRANS, A_data, B_data, C_data, m, n);
+}
+
 
 template <typename Dtype>
 void Mat<Dtype>::MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){
@@ -167,7 +183,7 @@ void Mat<Dtype>::MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n
 template <typename Dtype>
 void Mat<Dtype>::MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){	//common multiply:C = A * B
 
-#pragma omp parallel for num_threads(2)
+//#pragma omp parallel for num_threads(2)
 	for (int i = 0; i < m * n; i ++){
 		C[i] = 0;
 	}
@@ -221,5 +237,32 @@ Dtype* Mat<Dtype>::GET_CPU_DATA(){
 	return CPU_DATA;
 }
 
+template <typename Dtype>
+void Mat<Dtype>::MV_multiply_navie(bool TRANS, const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n){
+	if (TRANS == false){
+		for (int i_m = 0; i_m < m; i_m ++){
+			Dtype tmp = 0;
+			int C_idx = i_m;
+			for (int i_n = 0; i_n < n; i_n ++){
+				int A_idx = i_m * n + i_n;
+				int B_idx = i_n;	
+				tmp += A[A_idx] * B[B_idx];
+			}
+			C[C_idx] = tmp;
+		}
+	}else
+	if (TRANS == true){
+		for (int i_n = 0; i_n < n; i_n ++){
+			Dtype tmp = 0;
+			int C_idx = i_n;
+			for (int i_m = 0; i_m < m; i_m ++){
+				int A_idx = i_m * n + i_n;
+				int B_idx = i_m;
+				tmp += A[A_idx] * B[B_idx];
+			}
+			C[C_idx] = tmp;
+		}
+	}
+}
 INSTANCE_CLASS(Mat);
 }

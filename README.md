@@ -11,4 +11,7 @@ DONE:
 	
 
 TODO:
-	add parallel(openmp)
+	*add parallel(openmp)
+	add MV_multiply
+	optimize memory 
+

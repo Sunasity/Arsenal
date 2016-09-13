@@ -51,7 +51,9 @@ public:
 	}
 
 	void MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k);   //C(m*n) = A(m*k) * B(k*n)矩阵乘法	
-	void MV_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k);	//矩阵向量乘法
+	void MV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, const int n);	
+	//矩阵向量乘法 if(TRANS = false) C(m*1) = A(m*n) * B(n*1)
+	//if(TRANS = true) C(1*m) = B(1*m) * A(m*n)
 
 	Dtype* GET_CPU_DATA();
 
@@ -61,6 +63,7 @@ private:
 	void MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n);	//矩阵减法
 	void MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//普通矩阵乘法
 	void MM_multiply_naive(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//朴素矩阵乘法
+	void MV_multiply_navie(bool TRANS, const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n);		//朴素矩阵向量乘法
 	Dtype *MAT_DATA;
 	int _row, _column;
 
