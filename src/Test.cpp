@@ -8,6 +8,7 @@
 #include <ctime>
 #include <iostream>
 #define TEST_TIME 1000
+#define Mat_generate
 
 using std::ofstream;
 using std::string;
@@ -20,6 +21,7 @@ using namespace Arsenal;
 int main()
 {
 
+#ifdef Mat_computation
 	clock_t start, end, inter;
 	start = clock();
 	int test_data[TEST_TIME];
@@ -46,7 +48,17 @@ int main()
 		average_data += test_data[i]; 
 	}
 	cout << "Average Time : " << average_data/TEST_TIME << endl;
-	return 0;
+#endif
 	
+#ifdef Mat_generate
+	Mat<int> A(3,4);
+	A.eye();
+	int *b = A.GET_CPU_DATA();
+	cout << b[0] << endl;
+#endif
+	return 0;
 }
+
+
+
 

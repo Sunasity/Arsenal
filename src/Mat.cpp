@@ -1,7 +1,11 @@
 #include <stdio.h>
+#include <iostream>
 #include "Mat.hpp"
 #include "common.hpp"
 #include <omp.h>
+
+using std::cout;
+using std::endl;
 
 #define STRASSEN
 #define FOLDING_SIZE 16
@@ -11,6 +15,7 @@
 
 
 namespace Arsenal{
+//++++++++++++++++++++++++++Mat_computation++++++++++++++++++++++++++++++++++
 template <typename Dtype>
 void Mat<Dtype>::MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k){
 
@@ -255,5 +260,39 @@ void Mat<Dtype>::MV_multiply_navie(bool TRANS, const Dtype *A, const Dtype *B, D
 		}
 	}
 }
+
+
+//++++++++++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++
+template <typename Dtype>
+void Mat<Dtype>::zeros(){
+	for (int i = 0; i < _column * _row; i ++){
+		MAT_DATA[i] = 0;
+	}
+}
+
+
+template <typename Dtype>
+void Mat<Dtype>::ones(){
+	for (int i = 0; i < _column * _row; i ++){
+		MAT_DATA[i] = 1;
+	}
+}
+
+
+template <typename Dtype>
+void Mat<Dtype>::eye(){
+	if (_row != _column){
+		cout << "ERROR: row must be equal with column!" << endl;
+	}
+	for (int i = 0; i < _column * _row; i ++){
+		MAT_DATA[i] = 0;
+	}
+	for (int i = 0; i < _row; i ++){
+		MAT_DATA[(_row + 1) * i] = 1;
+	}
+
+}
+
+
 INSTANCE_CLASS(Mat);
 }

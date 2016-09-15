@@ -10,16 +10,10 @@ namespace Arsenal{
 template <typename Dtype>
 class Mat{
 public: 
-	inline Mat(int row, int column){	//构造函数
+	Mat(int row, int column){	//构造函数
 		_row = row;
 		_column = column;
 		MAT_DATA = new Dtype[_row * _column];
-		for (int i = 0; i < _column; i ++){
-			for (int j = 0; j < _row; j ++){
-				int MAT_DATA_idx = j * _row + i;
-				MAT_DATA[MAT_DATA_idx] = 0;
-			}
-		}
 	}
 
 	Mat(int row, int column, string file_name){	//文件输入构造函数
@@ -49,11 +43,16 @@ public:
 	~Mat(){		//析构函数
 		delete []MAT_DATA;
 	}
-
+//++++++++++++++++++Mat_computation++++++++++++++++++++++++++++++++++++++++++
 	void MM_multiply(const Mat &A, const Mat &B, Mat &C, const int m, const int n, const int k);   //C(m*n) = A(m*k) * B(k*n)矩阵乘法	
 	void MV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, const int n);	
 	//矩阵向量乘法 if(TRANS = false) C(m*1) = A(m*n) * B(n*1)
 	//if(TRANS = true) C(1*m) = B(1*m) * A(m*n)
+
+//++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++++++++++
+	void zeros();
+	void ones();
+	void eye();
 
 	Dtype* GET_CPU_DATA();
 
