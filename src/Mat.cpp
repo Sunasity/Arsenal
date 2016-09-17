@@ -2,10 +2,13 @@
 #include <iostream>
 #include "Mat.hpp"
 #include "common.hpp"
-#include <omp.h>
-
-using std::cout;
-using std::endl;
+#include <ctime>
+#include <random>
+#include <stdlib.h>
+using std::cout; using std::endl;
+using std::time;
+//using std::rand(); using std::srand();
+using std::default_random_engine; using std::normal_distribution;
 
 #define STRASSEN
 #define FOLDING_SIZE 16
@@ -270,14 +273,12 @@ void Mat<Dtype>::zeros(){
 	}
 }
 
-
 template <typename Dtype>
 void Mat<Dtype>::ones(){
 	for (int i = 0; i < _column * _row; i ++){
 		MAT_DATA[i] = 1;
 	}
 }
-
 
 template <typename Dtype>
 void Mat<Dtype>::eye(){
@@ -293,6 +294,23 @@ void Mat<Dtype>::eye(){
 
 }
 
+template <typename Dtype>
+void Mat<Dtype>::rand(Dtype LowerBound, Dtype UpperBound){
+	Dtype Distance = UpperBound - LowerBound;
+	std::srand((unsigned)time(0));
+	for (int i = 0; i < _row * _column; i ++){
+		MAT_DATA[i] = (std::rand() % Distance) + LowerBound;
+	}	
+}
+
+template <typename Dtype>
+void Mat<Dtype>::randn(Dtype Average, Dtype Varience){
+	default_random_engine Engine;
+	normal_distribution<Dtype> P(Average, Varience);
+	for (int i = 0; i < _row * _column; i ++){
+		MAT_DATA[i] = P(Engine);
+	}
+}
 
 INSTANCE_CLASS(Mat);
 }

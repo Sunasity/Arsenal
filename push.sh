@@ -1,3 +1,3 @@
 git add .
-git commit -m "add some generation function"
+git commit -m "Nothing Done"
 git push origin master

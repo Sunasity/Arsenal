@@ -53,6 +53,8 @@ public:
 	void zeros();
 	void ones();
 	void eye();
+	void rand(Dtype LowerBound, Dtype UpperBound);	//产生均匀分布的随机阵
+	void randn(Dtype Average, Dtype Varience);   //产生正态分布的随机阵
 
 	Dtype* GET_CPU_DATA();
 
