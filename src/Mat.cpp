@@ -7,8 +7,7 @@
 #include <stdlib.h>
 using std::cout; using std::endl;
 using std::time;
-//using std::rand(); using std::srand();
-using std::default_random_engine; using std::normal_distribution;
+using std::default_random_engine; using std::normal_distribution; using std::round;
 
 #define STRASSEN
 #define FOLDING_SIZE 16
@@ -267,21 +266,21 @@ void Mat<Dtype>::MV_multiply_navie(bool TRANS, const Dtype *A, const Dtype *B, D
 
 //++++++++++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++
 template <typename Dtype>
-void Mat<Dtype>::zeros(){
+void Mat<Dtype>::Zeros(){
 	for (int i = 0; i < _column * _row; i ++){
 		MAT_DATA[i] = 0;
 	}
 }
 
 template <typename Dtype>
-void Mat<Dtype>::ones(){
+void Mat<Dtype>::Ones(){
 	for (int i = 0; i < _column * _row; i ++){
 		MAT_DATA[i] = 1;
 	}
 }
 
 template <typename Dtype>
-void Mat<Dtype>::eye(){
+void Mat<Dtype>::Eye(){
 	if (_row != _column){
 		cout << "ERROR: row must be equal with column!" << endl;
 	}
@@ -295,22 +294,46 @@ void Mat<Dtype>::eye(){
 }
 
 template <typename Dtype>
-void Mat<Dtype>::rand(Dtype LowerBound, Dtype UpperBound){
+void Mat<Dtype>::Random(Dtype LowerBound, Dtype UpperBound){
 	Dtype Distance = UpperBound - LowerBound;
-	std::srand((unsigned)time(0));
+	srand((unsigned)time(0));
 	for (int i = 0; i < _row * _column; i ++){
-		MAT_DATA[i] = (std::rand() % Distance) + LowerBound;
-	}	
+		MAT_DATA[i] = ((double)rand() * Distance / RAND_MAX) + LowerBound;
+	}
 }
 
 template <typename Dtype>
-void Mat<Dtype>::randn(Dtype Average, Dtype Varience){
+void Mat<Dtype>::Randn(Dtype Average, Dtype Varience){
+	cout << "Note: Functions like randn_int(), randn_float(), randn_double() are recommended!" << endl;
+}
+
+template <typename Dtype>
+void Mat<Dtype>::Randn_int(int Average, int Varience){
 	default_random_engine Engine;
-	normal_distribution<Dtype> P(Average, Varience);
+	normal_distribution<float> P(Average, Varience);
+	for (int i = 0; i < _row * _column; i ++){
+		MAT_DATA[i] = round(P(Engine));
+	}
+}
+
+template <typename Dtype>
+void Mat<Dtype>::Randn_float(float Average, float Varience){
+	default_random_engine Engine;
+	normal_distribution<float> P(Average, Varience);
 	for (int i = 0; i < _row * _column; i ++){
 		MAT_DATA[i] = P(Engine);
 	}
 }
+
+template <typename Dtype>
+void Mat<Dtype>::Randn_double(double Average, double Varience){
+	default_random_engine Engine;
+	normal_distribution<double> P(Average, Varience);
+	for (int i = 0; i < _row * _column; i ++){
+		MAT_DATA[i] = round(P(Engine));
+	}
+}
+
 
 INSTANCE_CLASS(Mat);
 }

@@ -50,13 +50,19 @@ public:
 	//if(TRANS = true) C(1*m) = B(1*m) * A(m*n)
 
 //++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++++++++++
-	void zeros();
-	void ones();
-	void eye();
-	void rand(Dtype LowerBound, Dtype UpperBound);	//产生均匀分布的随机阵
-	void randn(Dtype Average, Dtype Varience);   //产生正态分布的随机阵
+	void Zeros();
+	void Ones();
+	void Eye();
+	void Random(const Dtype LowerBound, const Dtype UpperBound);	//产生均匀分布的随机阵
+	void Randn(Dtype Average, Dtype Varience);
+	void Randn_int(const int Average, const int Varience);   //产生int正态分布的随机阵
+	void Randn_float(const float Average, const float Varience);	//产生float正态分布随机阵
+	void Randn_double(const double Average, const double Varience);	  //禅城double正态分布随机阵	
 
+//++++++++++++++++++Mat_shape_display+++++++++++++++++++++++++++++++++++++++++
 	Dtype* GET_CPU_DATA();
+	void Reshape();
+	void Display();
 
 private:
 	void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//STRASSEN矩阵算法

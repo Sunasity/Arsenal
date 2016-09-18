@@ -1,3 +1,3 @@
 git add .
-git commit -m "Nothing Done"
+git commit -m "Random Function added"
 git push origin master

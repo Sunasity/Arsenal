@@ -51,10 +51,11 @@ int main()
 #endif
 	
 #ifdef Mat_generate
-	Mat<int> A(3,4);
-	A.eye();
-	int *b = A.GET_CPU_DATA();
-	cout << b[0] << endl;
+	Mat<double> A(3,3);
+	A.Randn_double(1,5);
+	double *b = A.GET_CPU_DATA();
+	for (int i = 0; i < 9; i ++)
+		cout << b[i] << endl;
 #endif
 	return 0;
 }
