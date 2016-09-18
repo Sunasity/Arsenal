@@ -61,7 +61,8 @@ public:
 
 //++++++++++++++++++Mat_shape_display+++++++++++++++++++++++++++++++++++++++++
 	Dtype* GET_CPU_DATA();
-	void Reshape();
+	void Reshape(int row, int column);	//change the shape of Mat to (row, column)
+	void Display(int row_begin, int row_end, int column_begin, int column_end);
 	void Display();
 
 private:

@@ -334,6 +334,53 @@ void Mat<Dtype>::Randn_double(double Average, double Varience){
 	}
 }
 
+//+++++++++++++++++++++++++Mat_shape_display++++++++++++++++++++++++++++++++++
+template <typename Dtype>
+void Mat<Dtype>::Reshape(int row, int column){
+	if (_row * _column != row * column){
+		cout << "Error: The shape must be equal"  << endl;
+	}else{
+		Dtype *Buff = new Dtype[_row * _column];
+		for (int i = 0; i < _row * _column; i ++){
+			Buff[i] = MAT_DATA[i];
+		}
+		for (int row_idx = 0; row_idx < row; row_idx ++){
+			for (int column_idx = 0; column_idx < column; column_idx ++){
+				int IDX_reshape = row_idx * column + column_idx;
+				int IDX_origin = column_idx * row + row_idx;
+				MAT_DATA[IDX_reshape] = Buff[IDX_origin];
+			}
+		}
+		_row = row;
+		_column = column;
+	}
+}
+
+template <typename Dtype>
+void Mat<Dtype>::Display(int row_begin, int row_end, int column_begin, int column_end){
+	if ((row_begin < 0) | (row_begin >= _row) | (row_end < 0) | (row_end >= _row) | (column_begin < 0) | (column_begin >= _column) | (column_end < 0) | (column_begin >= _column)){
+		cout << "Error: The shape out of range!" << endl;
+	}else{
+		for (int row_idx = row_begin; row_idx <= row_end; row_idx ++){
+			for (int column_idx = column_begin; column_idx <= column_end; column_idx ++){
+				int IDX = row_idx * _column + column_idx;
+				cout << MAT_DATA[IDX] << " ";
+			}
+			cout << endl;
+		}
+	}
+}
+
+template <typename Dtype>
+void Mat<Dtype>::Display(){
+	for (int row_idx = 0; row_idx < _row; row_idx ++){
+		for (int column_idx = 0; column_idx < _column; column_idx ++){
+			int IDX = row_idx * _column + column_idx;
+			cout << MAT_DATA[IDX] << " ";
+		}
+		cout << endl;
+	}
+}
 
 INSTANCE_CLASS(Mat);
 }

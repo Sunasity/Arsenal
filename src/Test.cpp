@@ -51,11 +51,13 @@ int main()
 #endif
 	
 #ifdef Mat_generate
-	Mat<double> A(3,3);
+	Mat<double> A(3,4);
 	A.Randn_double(1,5);
-	double *b = A.GET_CPU_DATA();
-	for (int i = 0; i < 9; i ++)
-		cout << b[i] << endl;
+	A.Display();
+	A.Reshape(4,3);
+	A.Display();
+	A.Reshape(12,1);
+	A.Display();
 #endif
 	return 0;
 }
