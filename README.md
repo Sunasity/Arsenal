@@ -13,4 +13,4 @@ DONE:
 
 TODO:
 	*add parallel(openmp)
-	add VV, Transpose, dot
+	add  Transpose, dot,乘方

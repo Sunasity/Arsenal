@@ -45,6 +45,13 @@ void Mat<Dtype>::MV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, con
 		MV_multiply_navie(TRANS, A_data, B_data, C_data, m, n);
 }
 
+template <typename Dtype>
+void Mat<Dtype>::VV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, const int n){
+		const Dtype *A_data =  A.MAT_DATA;
+		const Dtype *B_data = B.MAT_DATA;
+		Dtype *C_data = C.MAT_DATA;
+		VV_multiply_navie(TRANS, A_data, B_data, C_data, m, n);
+}
 
 template <typename Dtype>
 void Mat<Dtype>::MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){
@@ -263,7 +270,28 @@ void Mat<Dtype>::MV_multiply_navie(bool TRANS, const Dtype *A, const Dtype *B, D
 	}
 }
 
-
+template <typename Dtype>
+void Mat<Dtype>::VV_multiply_navie(bool TRANS, const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n){
+	if (TRANS == false){
+		for (int i_m = 0; i_m < m; i_m ++){
+			Dtype tmp = A[i_m];
+			for (int i_n = 0; i_n < n; i_n ++){
+				int C_idx = i_m * n + i_n;
+				C[C_idx] = tmp * B[i_n];
+			}
+		}
+	}else
+	if (TRANS == true){
+		if (m != n){
+			cout << "Error: row must be equal with column!" << endl;
+		}
+		Dtype out = 0;
+		for (int i = 0; i < m; i ++){
+			out += A[i] * B[i];
+		}
+		C[0] = out;
+	}
+}
 //++++++++++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++
 template <typename Dtype>
 void Mat<Dtype>::Zeros(){
