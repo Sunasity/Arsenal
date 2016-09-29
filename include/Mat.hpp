@@ -51,7 +51,7 @@ void MV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, co
 void VV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, const int n);
 //向量乘法 if(TRANS = false) C(m*n) = A(m*1) * B(1*n)
 //		   if(TRANS = true)  C(1*1) = B(1*m) * A(m*1)
-
+void Dot(const Mat &A, const Mat &B, Mat &C); //点乘 C = A .* B;
 //++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++++++++++
 void Zeros();
 void Ones();

@@ -54,6 +54,19 @@ void Mat<Dtype>::VV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, con
 }
 
 template <typename Dtype>
+void Mat<Dtype>::Dot(const Mat &A, const Mat &B, Mat &C){
+	if ((A._row != B._row) | (B._row != C._row) | (A._row != C._row) | (A._column != B._column) | (B._column != C._column) | (A._column != C._column)){
+		cout << "Error: row and column must be equal!" << endl;
+	}else
+	{
+		int row = C._row; int column =C. _column;
+		for (int i = 0; i < row * column; i ++){
+			C.MAT_DATA[i] = A.MAT_DATA[i] * B.MAT_DATA[i];
+		}
+	}
+}
+
+template <typename Dtype>
 void Mat<Dtype>::MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k){
 	if ((m % 2 == 0) & (n % 2 == 0) & (k % 2 == 0)){ 
 		int tmp_m = m / 2;
@@ -284,12 +297,14 @@ void Mat<Dtype>::VV_multiply_navie(bool TRANS, const Dtype *A, const Dtype *B, D
 	if (TRANS == true){
 		if (m != n){
 			cout << "Error: row must be equal with column!" << endl;
+		}else
+		{
+			Dtype out = 0;
+			for (int i = 0; i < m; i ++){
+				out += A[i] * B[i];
+			}
+			C[0] = out;
 		}
-		Dtype out = 0;
-		for (int i = 0; i < m; i ++){
-			out += A[i] * B[i];
-		}
-		C[0] = out;
 	}
 }
 //++++++++++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++
