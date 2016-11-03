@@ -54,10 +54,10 @@ int main()
 	Mat<double> A(3,4);
 	A.Randn_double(1,5);
 	A.Display();
-	A.Reshape(4,3);
+	A.Transpose();
 	A.Display();
-	A.Reshape(12,1);
-	A.Display();
+	//A.Reshape(12,1);
+	//A.Display();
 #endif
 	return 0;
 }

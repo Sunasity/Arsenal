@@ -52,6 +52,7 @@ void VV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, co
 //向量乘法 if(TRANS = false) C(m*n) = A(m*1) * B(1*n)
 //		   if(TRANS = true)  C(1*1) = B(1*m) * A(m*1)
 void Dot(const Mat &A, const Mat &B, Mat &C); //点乘 C = A .* B;
+void Transpose();
 //++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++++++++++
 void Zeros();
 void Ones();

@@ -307,6 +307,25 @@ void Mat<Dtype>::VV_multiply_navie(bool TRANS, const Dtype *A, const Dtype *B, D
 		}
 	}
 }
+
+template <typename Dtype>
+void Mat<Dtype>::Transpose(){
+	Dtype* transpose_Mat = new Dtype[_row * _column];
+	for (int i = 0; i < _row; i ++){
+		for (int j = 0; j < _column; j ++){
+			unsigned int IDX_origin = i * _column + j;
+			unsigned int IDX_transpose = j * _row + i;
+			transpose_Mat[IDX_transpose] = MAT_DATA[IDX_origin];
+		}
+	}
+
+	for (int l = 0; l < _row * _column; l ++){
+		MAT_DATA[l] = transpose_Mat[l];
+	}
+	int row = _row;
+	_row = _column; _column = row;
+	delete [] transpose_Mat;
+}
 //++++++++++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++
 template <typename Dtype>
 void Mat<Dtype>::Zeros(){
