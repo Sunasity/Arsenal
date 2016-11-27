@@ -1,3 +1,3 @@
 git add .
-git commit -m "Transpose Function added"
+git commit -m "Adding linear regression"
 git push origin master
