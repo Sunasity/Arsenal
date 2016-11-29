@@ -1,3 +1,3 @@
 git add .
-git commit -m "Updata Mat"
+git commit -m "Updatint Mat"
 git push origin master
