@@ -1,3 +1,3 @@
 git add .
-git commit -m "Adding linear regression"
+git commit -m "Updata Mat"
 git push origin master

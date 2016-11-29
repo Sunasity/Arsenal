@@ -326,6 +326,28 @@ void Mat<Dtype>::Transpose(){
 	_row = _column; _column = row;
 	delete [] transpose_Mat;
 }
+
+template <typename Dtype>
+void Mat<Dtype>::MM_add(const Mat &A, const Mat &B, Mat &C){
+	if (((B._row == 1) & (B._column == 1)) | ((A._row == 1) & (A._column == 1))){
+		bias_add(A.MAT_DATA, B.MAT_DATA, C.MAT_DATA, A._row, A._column);
+	}else{
+	if ((B._row != A._row) | (B._column != A._column)){
+		cout << "Size not compatable!" << endl;
+	}else{
+		for (int i = 0; i < A._row * A._column; i ++){
+			C.MAT_DATA[i] = A.MAT_DATA[i] + B.MAT_DATA[i];
+		}
+	}
+	}
+}
+
+template <typename Dtype>
+void Mat<Dtype>::bias_add(Dtype *A, Dtype *B, Dtype *C, const int m, const int n){
+	for (int i = 0; i < m * n; i ++){
+		C[i] = A[i] + B[0];
+	}
+}
 //++++++++++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++
 template <typename Dtype>
 void Mat<Dtype>::Zeros(){

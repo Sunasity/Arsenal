@@ -53,6 +53,7 @@ void VV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, co
 //		   if(TRANS = true)  C(1*1) = B(1*m) * A(m*1)
 void Dot(const Mat &A, const Mat &B, Mat &C); //点乘 C = A .* B;
 void Transpose();
+void MM_add(const Mat&A, const Mat &B, Mat &C);
 //++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++++++++++
 void Zeros();
 void Ones();
@@ -72,6 +73,7 @@ void Display();
 private:
 void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//STRASSEN矩阵算法
 void MM_add(Dtype *A, Dtype *B, Dtype *C, const int m, const int n);	//矩阵加法
+void bias_add(Dtype *A, Dtype *B, Dtype *C);
 void MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n);	//矩阵减法
 void MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//普通矩阵乘法
 void MM_multiply_naive(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//朴素矩阵乘法
