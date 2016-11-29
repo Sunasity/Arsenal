@@ -343,7 +343,7 @@ void Mat<Dtype>::MM_add(const Mat &A, const Mat &B, Mat &C){
 }
 
 template <typename Dtype>
-void Mat<Dtype>::bias_add(Dtype *A, Dtype *B, Dtype *C, const int m, const int n){
+void Mat<Dtype>::bias_add(Dtype *A, Dtype *B, Dtype *C, int m, int n){
 	for (int i = 0; i < m * n; i ++){
 		C[i] = A[i] + B[0];
 	}

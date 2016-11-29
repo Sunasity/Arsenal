@@ -3,7 +3,7 @@
 #include "Mat.hpp"
 #include "common.hpp"
 #include <stdlib.h>
-#include "Regression"
+#include "Regression.hpp"
 
 using std::cout; using std::endl;
 

@@ -73,7 +73,7 @@ void Display();
 private:
 void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//STRASSEN矩阵算法
 void MM_add(Dtype *A, Dtype *B, Dtype *C, const int m, const int n);	//矩阵加法
-void bias_add(Dtype *A, Dtype *B, Dtype *C);
+void bias_add(Dtype *A, Dtype *B, Dtype *C, int m, int n);
 void MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n);	//矩阵减法
 void MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//普通矩阵乘法
 void MM_multiply_naive(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//朴素矩阵乘法
