@@ -10,9 +10,14 @@ public:
 //+++++++++++++++++++++++++++++++++++++++++++++++++
 	Regression(){
 	}
-	Regression(int _dimension, int _Num_smaples){
-		dimension = _dimension;
-		Num_samples = _Num_samples;
+
+	Regression(int dimension, int Num_samples){
+		_dimension = dimension;
+		_Num_samples = Num_samples;
+		Mat<Dtype> weight(_dimension, 1);
+		Mat<Dtype> bias(1, 1);
+		Mat<Dtype> input(_Num_samples, _dimension);
+		Mat<Dtype> output(_Num_samples, 1);
 		Weight_init();
 	}
 
@@ -24,12 +29,12 @@ public:
 protected:
 	void Weight_init();
 
-	int dimension;
-	int Num_samples;
-	Mat<Dtype> weight(dimension, 1);
+	int _dimension;
+	int _Num_samples;
+	Mat<Dtype> weight;
 	Mat<Dtype> bias;
-	Mat<Dtype> input(Num_samples, dimension);
-	Mat<Dtype> output(Num_samples);
-}
+	Mat<Dtype> input;
+	Mat<Dtype> output;
+};
 
 }

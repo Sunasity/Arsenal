@@ -10,6 +10,9 @@ namespace Arsenal{
 template <typename Dtype>
 class Mat{
 public: 
+Mat(){
+}
+
 Mat(int row, int column){	//构造函数
 	_row = row;
 	_column = column;
