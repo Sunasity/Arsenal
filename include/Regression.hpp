@@ -1,5 +1,8 @@
-#include "Mat.hpp"
+#ifndef REGRESSION_H_
+#define REGRESSION_H_
 
+
+#include "Mat.hpp"
 
 namespace Arsenal{
 
@@ -7,7 +10,6 @@ template <typename Dtype>
 //basis class for regression algorithm
 class Regression{
 public:
-//+++++++++++++++++++++++++++++++++++++++++++++++++
 	Regression(){
 	}
 
@@ -37,4 +39,8 @@ protected:
 	Mat<Dtype> output;
 };
 
+
+
 }
+
+#endif

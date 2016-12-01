@@ -1,3 +1,6 @@
+#ifndef MAT_HPP_
+#define MAT_HPP_
+
 #include <string>
 #include <fstream>
 
@@ -88,3 +91,6 @@ int _row, _column;
 };
 
 }
+
+
+#endif

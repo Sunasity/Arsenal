@@ -7,15 +7,23 @@
 namespace Arsenal{
 template <typename Dtype>
 void Linear_Regression<Dtype>::Forward(){
-	output.MV_multiply(input, weight, output, _Num_samples, _dimension, 1);
+	//output.MV_multiply(input, weight, output, _Num_samples, _dimension, 1);
 }
 
 template <typename Dtype>
 void Linear_Regression<Dtype>::Test(){
 	Forward();
-
 }
 
+template <typename Dtype>
+void Linear_Regression<Dtype>::Backward(){
+	//output.MV_multiply(input, weight, output, _Num_samples, _dimension, 1);
+}
 
-INSTANCE_CLASS(Regression);
+template <typename Dtype>
+void Linear_Regression<Dtype>::Train(){
+	Backward();
+}
+
+INSTANCE_CLASS(Linear_Regression);
 }
