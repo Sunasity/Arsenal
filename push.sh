@@ -1,3 +1,3 @@
 git add .
-git commit -m "Some bugs fixed"
+git commit -m "Little change in Mat"
 git push origin master

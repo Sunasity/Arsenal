@@ -12,6 +12,5 @@ DONE:
 	3.Some Mat shape FUnction added without optimization
     4.Some multily Function added without optimization
 TODO:
-	add parallel(openmp)
+	*add parallel(openmp)
 	add Regression algorithms
-	little adjust to Mat

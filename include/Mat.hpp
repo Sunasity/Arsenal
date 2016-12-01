@@ -75,6 +75,8 @@ Dtype* GET_CPU_DATA();
 void Reshape(int row, int column);	//change the shape of Mat to (row, column)
 void Display(int row_begin, int row_end, int column_begin, int column_end);
 void Display();
+void Mutable();
+void Constant();
 
 private:
 void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//STRASSEN矩阵算法

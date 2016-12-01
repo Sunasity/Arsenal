@@ -466,5 +466,15 @@ void Mat<Dtype>::Display(){
 	}
 }
 
+//Need to be implemented in the feature
+template <typename Dtype>
+void Mat<Dtype>::Mutable(){
+}
+
+template <typename Dtype>
+void Mat<Dtype>::Constant(){
+}
+
+
 INSTANCE_CLASS(Mat);
 }
