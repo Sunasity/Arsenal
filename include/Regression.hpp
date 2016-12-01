@@ -28,15 +28,17 @@ public:
 	virtual void Backward();
 	virtual void Test();
 	virtual void Train();
+
+
 protected:
 	void Weight_init();
-
 	int _dimension;
 	int _Num_samples;
 	Mat<Dtype> weight;
 	Mat<Dtype> bias;
 	Mat<Dtype> input;
 	Mat<Dtype> output;
+
 };
 
 

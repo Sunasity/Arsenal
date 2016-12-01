@@ -14,3 +14,4 @@ DONE:
 TODO:
 	*add parallel(openmp)
 	add Regression algorithms
+	adjust Mat
