@@ -13,3 +13,5 @@ DONE:
     4.Some multily Function added without optimization
 TODO:
 	add parallel(openmp)
+	add Regression algorithms
+	little adjust to Mat
