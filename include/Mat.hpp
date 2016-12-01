@@ -77,6 +77,8 @@ void Display(int row_begin, int row_end, int column_begin, int column_end);
 void Display();
 void Mutable();
 void Constant();
+void Shape_Init(int row, int column);
+void Shape_Init(int row, int column, string file_name);
 
 private:
 void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//STRASSEN矩阵算法

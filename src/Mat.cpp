@@ -5,9 +5,14 @@
 #include <ctime>
 #include <random>
 #include <stdlib.h>
+#include <string>
+#include <fstream>
+
 using std::cout; using std::endl;
 using std::time;
 using std::default_random_engine; using std::normal_distribution; using std::round;
+using std::string;
+using std::ifstream;
 
 #define STRASSEN
 #define FOLDING_SIZE 16
@@ -475,6 +480,23 @@ template <typename Dtype>
 void Mat<Dtype>::Constant(){
 }
 
+template <typename Dtype>
+void Mat<Dtype>::Shape_Init(int row, int column){
+	_row = row;
+	_column = column;
+}
+
+template <typename Dtype>
+void Mat<Dtype>::Shape_Init(int row, int column, string file_name){
+	_row = row;
+	_column = column;
+	MAT_DATA = new Dtype[_row * _column];
+	const char* _file_name = file_name.data();
+	ifstream in_file(_file_name);
+	for (int i = 0; i < _row * _column; i ++){
+		in_file >> MAT_DATA[i];
+	}
+}
 
 INSTANCE_CLASS(Mat);
 }
