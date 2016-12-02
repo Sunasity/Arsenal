@@ -9,7 +9,7 @@ BIN = bin
 TARGET = $(BIN)/Arsenal
 OBJSDIR = obj
 ####objs####
-OBJS = Mat.o  Test.o Regression.o Linear_Regression.o
+OBJS = Mat.o  Mat_Test.o Regression.o Linear_Regression.o
 
 .PHONY : all
 all : $(OBJS)

@@ -1,6 +1,3 @@
-#ifndef MAT_HPP_
-#define MAT_HPP_
-
 #include <string>
 #include <fstream>
 
@@ -59,7 +56,8 @@ void VV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, co
 //		   if(TRANS = true)  C(1*1) = B(1*m) * A(m*1)
 void Dot(const Mat &A, const Mat &B, Mat &C); //点乘 C = A .* B;
 void Transpose();
-void MM_add(const Mat&A, const Mat &B, Mat &C);
+void MM_add(Mat &A, Mat &B, Mat &C);
+int* Accuracy(Mat &A, Mat &B);//A,B must be vector! the item return has 3 values, correct:item[0] error:item[1] total:item[2]
 //++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++++++++++
 void Zeros();
 void Ones();
@@ -95,6 +93,3 @@ int _row, _column;
 };
 
 }
-
-
-#endif

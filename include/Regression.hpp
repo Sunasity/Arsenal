@@ -28,6 +28,7 @@ protected:
 	Mat<Dtype> bias;
 	Mat<Dtype> input;
 	Mat<Dtype> output;
+	Mat<Dtype> labels;
 
 };
 

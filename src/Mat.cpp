@@ -333,7 +333,7 @@ void Mat<Dtype>::Transpose(){
 }
 
 template <typename Dtype>
-void Mat<Dtype>::MM_add(const Mat &A, const Mat &B, Mat &C){
+void Mat<Dtype>::MM_add(Mat &A, Mat &B, Mat &C){
 	if (((B._row == 1) & (B._column == 1)) | ((A._row == 1) & (A._column == 1))){
 		bias_add(A.MAT_DATA, B.MAT_DATA, C.MAT_DATA, A._row, A._column);
 	}else{
@@ -353,6 +353,28 @@ void Mat<Dtype>::bias_add(Dtype *A, Dtype *B, Dtype *C, int m, int n){
 		C[i] = A[i] + B[0];
 	}
 }
+
+template <typename Dtype>
+int* Mat<Dtype>::Accuracy(Mat& A, Mat& B){
+	int* accu = new int(3);
+	if ((A._column != 1) | (B._column != 1)){
+		cout << "Error:A and B must be Vecotr!" << endl;
+	}else
+	if (A._row != B._row){
+		cout << "Error:A and B must be the same size!" << endl;
+	}else{
+		accu[0] = 0; accu[1] = 0; accu[2] = A._row;
+		for (int i = 0; i < A._row; i ++){
+			if (A.MAT_DATA[i] == B.MAT_DATA[i]){
+				accu[0] ++;
+			}else{
+				accu[1] ++;
+			}
+		}
+	}
+	return accu;
+}
+
 //++++++++++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++
 template <typename Dtype>
 void Mat<Dtype>::Zeros(){

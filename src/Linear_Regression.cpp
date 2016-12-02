@@ -8,6 +8,7 @@ namespace Arsenal{
 template <typename Dtype>
 void Linear_Regression<Dtype>::Forward(){
 	this->output.MV_multiply(false, this->input, this->weight, this->output, this->_Num_samples, this->_dimension);
+	this->output.MM_add(this->output, this->bias, this->output);
 }
 
 template <typename Dtype>
