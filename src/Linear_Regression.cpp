@@ -13,7 +13,9 @@ void Linear_Regression<Dtype>::Forward(){
 
 template <typename Dtype>
 void Linear_Regression<Dtype>::Test(){
+	//int accu[3];
 	Forward();
+	//accu = this->output.Accuracy(this->output, this->labels);
 }
 
 template <typename Dtype>
