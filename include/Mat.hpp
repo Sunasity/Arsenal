@@ -54,9 +54,13 @@ void MV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, co
 void VV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, const int m, const int n);
 //向量乘法 if(TRANS = false) C(m*n) = A(m*1) * B(1*n)
 //		   if(TRANS = true)  C(1*1) = B(1*m) * A(m*1)
-void Dot(const Mat &A, const Mat &B, Mat &C); //点乘 C = A .* B;
+void Dot(Mat &A, Mat &B, Mat &C); //点乘 C = A .* B;
+void bias_multiply(Mat &A, Dtype bias, Mat &B);
+void bias_division(Mat &A, Dtype bias, Mat &B);
 void Transpose();
 void MM_add(Mat &A, Mat &B, Mat &C);
+void MM_sub(Mat &A, Mat &B, Mat &C);
+Dtype Sum();
 int* Accuracy(Mat &A, Mat &B);//A,B must be vector! the item return has 3 values, correct:item[0] error:item[1] total:item[2]
 //++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++++++++++
 void Zeros();
@@ -77,11 +81,13 @@ void Mutable();
 void Constant();
 void Shape_Init(int row, int column);
 void Shape_Init(int row, int column, string file_name);
+int* size(); 
 
 private:
 void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//STRASSEN矩阵算法
 void MM_add(Dtype *A, Dtype *B, Dtype *C, const int m, const int n);	//矩阵加法
 void bias_add(Dtype *A, Dtype *B, Dtype *C, int m, int n);
+void bias_sub(Dtype *A, Dtype *B, Dtype *C, int m, int n);
 void MM_minus(Dtype *A, Dtype *B, Dtype *C, const int m, const int n);	//矩阵减法
 void MM_multiply_common(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//普通矩阵乘法
 void MM_multiply_naive(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//朴素矩阵乘法

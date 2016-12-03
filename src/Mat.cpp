@@ -59,7 +59,7 @@ void Mat<Dtype>::VV_multiply(bool TRANS, const Mat &A, const Mat &B, Mat &C, con
 }
 
 template <typename Dtype>
-void Mat<Dtype>::Dot(const Mat &A, const Mat &B, Mat &C){
+void Mat<Dtype>::Dot(Mat &A, Mat &B, Mat &C){
 	if ((A._row != B._row) | (B._row != C._row) | (A._row != C._row) | (A._column != B._column) | (B._column != C._column) | (A._column != C._column)){
 		cout << "Error: row and column must be equal!" << endl;
 	}else
@@ -338,7 +338,7 @@ void Mat<Dtype>::MM_add(Mat &A, Mat &B, Mat &C){
 		bias_add(A.MAT_DATA, B.MAT_DATA, C.MAT_DATA, A._row, A._column);
 	}else{
 	if ((B._row != A._row) | (B._column != A._column)){
-		cout << "Size not compatable!" << endl;
+		cout << "Error : Size not compatable!" << endl;
 	}else{
 		for (int i = 0; i < A._row * A._column; i ++){
 			C.MAT_DATA[i] = A.MAT_DATA[i] + B.MAT_DATA[i];
@@ -348,9 +348,31 @@ void Mat<Dtype>::MM_add(Mat &A, Mat &B, Mat &C){
 }
 
 template <typename Dtype>
+void Mat<Dtype>::MM_sub(Mat &A, Mat &B, Mat &C){
+	if (((B._row == 1) & (B._column == 1)) | ((A._row == 1) & (A._column == 1))){
+		bias_sub(A.MAT_DATA, B.MAT_DATA, C.MAT_DATA, A._row, A._column);
+	}else{
+	if ((B._row != A._row) | (B._column != A._column)){
+		cout << "Size not compatable!" << endl;
+	}else{
+		for (int i = 0; i < A._row * A._column; i ++){
+			C.MAT_DATA[i] = A.MAT_DATA[i] - B.MAT_DATA[i];
+		}
+	}
+	}
+}
+
+template <typename Dtype>
 void Mat<Dtype>::bias_add(Dtype *A, Dtype *B, Dtype *C, int m, int n){
 	for (int i = 0; i < m * n; i ++){
 		C[i] = A[i] + B[0];
+	}
+}
+
+template <typename Dtype>
+void Mat<Dtype>::bias_sub(Dtype *A, Dtype *B, Dtype *C, int m, int n){
+	for (int i = 0; i < m * n; i ++){
+		C[i] = A[i] - B[0];
 	}
 }
 
@@ -375,6 +397,35 @@ int* Mat<Dtype>::Accuracy(Mat& A, Mat& B){
 	return accu;
 }
 
+template <typename Dtype>
+void Mat<Dtype>::bias_multiply(Mat &A, Dtype bias, Mat &B){
+	if ((A._row != B._row) | (A._column != B._column)){
+		cout << "Error : Size not comaptable! " << endl;
+	}
+
+	for (int i = 0; i < _row * _column; i ++){
+		B.MAT_DATA[i] = A.MAT_DATA[i] * bias;
+	}
+}
+
+template <typename Dtype>
+void Mat<Dtype>::bias_division(Mat &A, Dtype bias, Mat &B){
+	if ((A._row != B._row) | (A._column != B._column)){
+		cout << "Error : Size not comaptable! " << endl;
+	}
+	
+	bias = 1 / bias;
+	bias_multiply(A, bias, B);
+}
+
+template <typename Dtype>
+Dtype Mat<Dtype>::Sum(){
+	Dtype sum = 0;
+	for (int i = 0; i < _row * _column; i ++){
+		sum += MAT_DATA[i];
+	}
+	return sum;
+}	
 //++++++++++++++++++++++++++Mat_generate+++++++++++++++++++++++++++++++++++++
 template <typename Dtype>
 void Mat<Dtype>::Zeros(){
@@ -518,6 +569,14 @@ void Mat<Dtype>::Shape_Init(int row, int column, string file_name){
 	for (int i = 0; i < _row * _column; i ++){
 		in_file >> MAT_DATA[i];
 	}
+}
+
+template <typename Dtype>
+int* Mat<Dtype>::size(){
+	int* size = new int(2);
+	size[0] = _row;
+	size[1] = _column;
+	return size;
 }
 
 INSTANCE_CLASS(Mat);
