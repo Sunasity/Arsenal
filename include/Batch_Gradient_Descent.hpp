@@ -20,7 +20,7 @@ public:
 	Batch_Gradient_Descent(){
 		_optim.lr = 0.05;
 		_optim.weight_decay = 0;
-		_optim.max_epoch = 0;
+		_optim.max_epoch = 1;
 	}
 
 	Batch_Gradient_Descent(Optim<Dtype> optim){
@@ -31,7 +31,8 @@ public:
 
 	void Linear_Regression_loss(Mat<Dtype> &labels, Mat<Dtype> &output);
 	void Linear_Regression_bgd(Mat<Dtype> &labels, Mat<Dtype> &output, Mat<Dtype> &weight, Mat<Dtype> &bias, Mat<Dtype> &input);
-private:
+
+
 	Optim<Dtype> _optim;
 	Dtype loss;
 };

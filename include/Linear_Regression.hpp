@@ -3,6 +3,7 @@
 
 
 #include "Regression.hpp"
+#include "Batch_Gradient_Descent.hpp"
 
 namespace Arsenal{
 
@@ -12,6 +13,11 @@ class Linear_Regression : public Regression<Dtype> {
 public:
 	Linear_Regression(){
 	}
+
+	Linear_Regression(Optim<Dtype> optim){
+		_bgd._optim = optim;
+	}
+
 
 	Linear_Regression(int dimension, int Num_samples){
 		this->_dimension = dimension;
@@ -24,11 +30,16 @@ public:
 		this->Weight_init();
 	}
 
+
 	void Forward();
 	void Backward();
 	void Test();
 	void Train();
+	void Dataset_get(Mat<Dtype> input_get, Mat<Dtype> labels_get);
+private:
+	Batch_Gradient_Descent<Dtype> _bgd;
 };
+	
 
 }
 

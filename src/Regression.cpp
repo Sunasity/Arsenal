@@ -29,5 +29,12 @@ template <typename Dtype>
 void Regression<Dtype>::Train(){
 }
 
+template <typename Dtype>
+void Regression<Dtype>::Dataset_get(Mat<Dtype> input_get, Mat<Dtype> labels_get){	
+	//input.Copy(input_get);
+	//labels.Copy(labels_get);
+}
+
+
 INSTANCE_CLASS(Regression);
 }

@@ -19,6 +19,7 @@ public:
 	virtual void Test();
 	virtual void Train();
 
+	void Dataset_get(Mat<Dtype> input_get, Mat<Dtype> labels_get);
 
 protected:
 	void Weight_init();

@@ -1,3 +1,3 @@
 git add .
-git commit -m "Adjusting and Coding..."
+git commit -m "Almost finish linear regression"
 git push origin master

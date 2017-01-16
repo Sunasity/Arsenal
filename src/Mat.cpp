@@ -579,5 +579,13 @@ int* Mat<Dtype>::size(){
 	return size;
 }
 
+template <typename Dtype>
+void Mat<Dtype>::Copy(Mat<Dtype> copies){
+	for (int i = 0; i < _column * _row; i++){
+		MAT_DATA[i] = copies.MAT_DATA[i];	 
+	}
+	//Dtype *Data = copies.MAT_DATA;
+}
+
 INSTANCE_CLASS(Mat);
 }

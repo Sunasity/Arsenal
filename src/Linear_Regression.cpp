@@ -20,12 +20,19 @@ void Linear_Regression<Dtype>::Test(){
 
 template <typename Dtype>
 void Linear_Regression<Dtype>::Backward(){
-	//output.MV_multiply(input, weight, output, _Num_samples, _dimension, 1);
+	_bgd.Linear_Regression_bgd(this->labels, this->output, this->weight, this-> bias, this->input);	
 }
 
 template <typename Dtype>
 void Linear_Regression<Dtype>::Train(){
 	Backward();
+}
+
+
+template <typename Dtype>
+void Linear_Regression<Dtype>::Dataset_get(Mat<Dtype> input_get, Mat<Dtype> labels_get){	
+	this->input.Copy(input_get);
+	this->labels.Copy(labels_get);
 }
 
 INSTANCE_CLASS(Linear_Regression);

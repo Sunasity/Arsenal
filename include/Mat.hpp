@@ -1,3 +1,6 @@
+#ifndef MAT_H_
+#define MAT_H_
+
 #include <string>
 #include <fstream>
 
@@ -82,6 +85,8 @@ void Constant();
 void Shape_Init(int row, int column);
 void Shape_Init(int row, int column, string file_name);
 int* size(); 
+void Copy(Mat<Dtype> copies);
+
 
 private:
 void MM_multiply_STRASSEN(const Dtype *A, const Dtype *B, Dtype *C, const int m, const int n, const int k);	//STRASSEN矩阵算法
@@ -99,3 +104,6 @@ int _row, _column;
 };
 
 }
+
+
+#endif
