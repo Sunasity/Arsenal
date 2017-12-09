@@ -2,63 +2,48 @@
 //
 
 #include <stdio.h>
-#include "Mat.hpp"
+#include "../include/Mat.hpp"
+#include "../include/tt_fc_layer.hpp"
 #include <fstream>
 #include <string>
 #include <ctime>
 #include <iostream>
 #define TEST_TIME 1000
-#define Mat_generate
 
 using std::ofstream;
+using std::ifstream;
 using std::string;
 using std::endl;
-using std::clock_t;
 using std::cout;
 
 using namespace Arsenal;
 
 int main()
 {
+	int in_modes[6] = {4,4,4,4,4,3};
+	int ranks[7] = {1,3,3,3,3,3,1};
+	int out_modes[6] = {8,8,8,8,8,8};
+	int dim = 6;
+	int in_shape = 3072;
+	int out_shape = 262144;
+	string input_file = "./data/input.dat";
+	string weight_file = "./data/weight.dat";
 
-#ifdef Mat_computation
-	clock_t start, end, inter;
-	start = clock();
-	int test_data[TEST_TIME];
-	long long  average_data = 0;
-	Mat<int> A(64,27, "../data/A_128x576.dat");
-	Mat<int> B(27,224, "../data/B_576x224.dat");
-	Mat<int> C(64, 224);	
-	for (int i = 0; i < TEST_TIME; i ++){
-		inter = clock();
-		C.MM_multiply(A, B, C, 64, 224, 27);
-		end = clock();
-		test_data[i] = end - inter;
-	}
-	int *data_test = new int(64*224);
-	data_test = C.GET_CPU_DATA();
-	string file_name = "../data/C_128x224.dat";
-	const char *_file_name = file_name.data();
-	ofstream C_file(_file_name);
-	for (int i = 0; i < 64*224; i ++){
-		C_file << data_test[i] << endl;
-	}
-	cout << "Read_Time : " << test_data[0] - start << endl;
-	for (int i = 0; i < TEST_TIME; i ++){
-		average_data += test_data[i]; 
-	}
-	cout << "Average Time : " << average_data/TEST_TIME << endl;
-#endif
+
+
+
+	Mat<float> input(in_shape, 1, input_file);
+	Mat<float> weight(1320, 1, weight_file);
+	Mat<float> output(out_shape, 1);
+	tt_fc_layer<float> tt(dim, in_shape, out_shape, in_modes, out_modes, ranks);
+	tt.TT_layer(output, input, weight);
+	output.Display();
+
+
+
 	
-#ifdef Mat_generate
-	Mat<double> A(3,4);
-	A.Randn_double(1,5);
-	A.Display();
-	A.Transpose();
-	A.Display();
-	//A.Reshape(12,1);
-	//A.Display();
-#endif
+	
+	system("pause");
 	return 0;
 }
 

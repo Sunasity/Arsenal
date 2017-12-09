@@ -1,20 +1,24 @@
 #include <stdio.h>
 #include <iostream>
-#include "Mat.hpp"
-#include "common.hpp"
+#include "../include/Mat.hpp"
+#include "../include/common.hpp"
 #include <ctime>
 #include <random>
 #include <stdlib.h>
 #include <string>
 #include <fstream>
+#include <math.h>
+
 
 using std::cout; using std::endl;
 using std::time;
-using std::default_random_engine; using std::normal_distribution; using std::round;
+using std::default_random_engine; using std::normal_distribution;
 using std::string;
 using std::ifstream;
 
-#define STRASSEN
+
+
+#define NAIVE
 #define FOLDING_SIZE 16
 #define PE C[C_idx] += tmp * B[B_idx]; \
 		   B_idx ++; \
@@ -455,6 +459,8 @@ void Mat<Dtype>::Eye(){
 
 }
 
+//implemetation for randn, need test
+/*
 template <typename Dtype>
 void Mat<Dtype>::Random(Dtype LowerBound, Dtype UpperBound){
 	Dtype Distance = UpperBound - LowerBound;
@@ -474,7 +480,7 @@ void Mat<Dtype>::Randn_int(int Average, int Varience){
 	default_random_engine Engine;
 	normal_distribution<float> P(Average, Varience);
 	for (int i = 0; i < _row * _column; i ++){
-		MAT_DATA[i] = round(P(Engine));
+		MAT_DATA[i] = floor(P(Engine));
 	}
 }
 
@@ -492,15 +498,16 @@ void Mat<Dtype>::Randn_double(double Average, double Varience){
 	default_random_engine Engine;
 	normal_distribution<double> P(Average, Varience);
 	for (int i = 0; i < _row * _column; i ++){
-		MAT_DATA[i] = round(P(Engine));
+		MAT_DATA[i] = floor(P(Engine));
 	}
 }
-
+*/
 //+++++++++++++++++++++++++Mat_shape_display++++++++++++++++++++++++++++++++++
 template <typename Dtype>
 void Mat<Dtype>::Reshape(int row, int column){
 	if (_row * _column != row * column){
-		cout << "Error: The shape must be equal"  << endl;
+		cout << "Error: The shape must be equal" << endl;
+		cout << "origin: " << _row * _column << "	target: " << row * column << endl;
 	}else{
 		Dtype *Buff = new Dtype[_row * _column];
 		for (int i = 0; i < _row * _column; i ++){
@@ -509,7 +516,9 @@ void Mat<Dtype>::Reshape(int row, int column){
 		for (int row_idx = 0; row_idx < row; row_idx ++){
 			for (int column_idx = 0; column_idx < column; column_idx ++){
 				int IDX_reshape = row_idx * column + column_idx;
-				int IDX_origin = column_idx * row + row_idx;
+				int origin_1 = IDX_reshape / _column;
+				int origin_2 = IDX_reshape % _column;
+				int IDX_origin = origin_1 * _column + origin_2;
 				MAT_DATA[IDX_reshape] = Buff[IDX_origin];
 			}
 		}
@@ -573,7 +582,7 @@ void Mat<Dtype>::Shape_Init(int row, int column, string file_name){
 
 template <typename Dtype>
 int* Mat<Dtype>::size(){
-	int* size = new int(2);
+	int *size = new int[2];
 	size[0] = _row;
 	size[1] = _column;
 	return size;
@@ -585,6 +594,21 @@ void Mat<Dtype>::Copy(Mat<Dtype> copies){
 		MAT_DATA[i] = copies.MAT_DATA[i];	 
 	}
 	//Dtype *Data = copies.MAT_DATA;
+}
+
+template <typename Dtype>
+void Mat<Dtype>::Copy(int begin_bias, Mat<Dtype> copies){
+	for (int i = 0; i < _column * _row; i++){
+		MAT_DATA[i] = copies.MAT_DATA[i+begin_bias];
+	}
+}
+
+template <typename Dtype>
+void Mat<Dtype>::Shape_Change(int row, int column){
+	_row = row;
+	_column = column;
+	delete []MAT_DATA;
+	MAT_DATA = new Dtype[_row * _column];
 }
 
 INSTANCE_CLASS(Mat);

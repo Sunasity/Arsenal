@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <iostream>
-#include "common.hpp"
-#include "Batch_Gradient_Descent.hpp"
+#include "../include/common.hpp"
+#include "../include/Batch_Gradient_Descent.hpp"
 
 using std::cout; using std::endl;
 

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <iostream>
-#include "common.hpp"
+#include "../include/common.hpp"
 #include <stdlib.h>
-#include "Regression.hpp"
+#include "../include/Regression.hpp"
 
 using std::cout; using std::endl;
 

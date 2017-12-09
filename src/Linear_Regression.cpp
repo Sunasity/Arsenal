@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <iostream>
-#include "common.hpp"
+#include "../include/common.hpp"
 #include <stdlib.h>
-#include "Linear_Regression.hpp"
+#include "../include/Linear_Regression.hpp"
 
 namespace Arsenal{
 template <typename Dtype>

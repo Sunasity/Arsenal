@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "math_function.hpp"
+#include "../include/math_function.hpp"
 #define FOLDING_SIZE 16
 #define PE C[C_idx] += tmp * B[B_idx]; \
 		   B_idx ++; \
