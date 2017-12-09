@@ -21,13 +21,54 @@
     <ClInclude Include="include\Mat.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Batch_Gradient_Descent.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Linear_Regression.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math_function.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Regression.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tt_fc_layer.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Mat.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Test.cpp">
+    <ClCompile Include="src\Batch_Gradient_Descent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Linear_Regression.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mat_Test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math_function.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Regression.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tt_fc_layer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\input.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\weight.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="data\weight2.dat">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

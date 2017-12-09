@@ -62,12 +62,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Batch_Gradient_Descent.hpp" />
     <ClInclude Include="include\common.hpp" />
+    <ClInclude Include="include\Linear_Regression.hpp" />
     <ClInclude Include="include\Mat.hpp" />
+    <ClInclude Include="include\math_function.hpp" />
+    <ClInclude Include="include\Regression.hpp" />
+    <ClInclude Include="include\tt_fc_layer.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Batch_Gradient_Descent.cpp" />
+    <ClCompile Include="src\Linear_Regression.cpp" />
     <ClCompile Include="src\Mat.cpp" />
-    <ClCompile Include="src\Test.cpp" />
+    <ClCompile Include="src\math_function.cpp" />
+    <ClCompile Include="src\Mat_Test.cpp" />
+    <ClCompile Include="src\Regression.cpp" />
+    <ClCompile Include="src\tt_fc_layer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\input.dat" />
+    <None Include="data\weight.dat" />
+    <None Include="data\weight2.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
