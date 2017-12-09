@@ -4,7 +4,7 @@
 
 #include "Regression.hpp"
 #include "Batch_Gradient_Descent.hpp"
-
+//unfinished!!
 namespace Arsenal{
 
 template <typename Dtype>
